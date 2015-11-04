@@ -31,10 +31,10 @@ public class Cliente implements Serializable{
     @Column(name = "idCliente", nullable=false)
     private Integer idCliente;
     @Basic(optional = false)
-    @Column(name = "Nombre", length=10)
+    @Column(name = "Nombre", length=10, nullable=false)
     private String nombre;
     @Basic(optional = false)
-    @Column(name = "ApellidoP", length=10)
+    @Column(name = "ApellidoP", length=10, nullable=false)
     private String apellidoP;
     @Basic(optional = false)
     @Column(name = "ApellidoM", length=10, nullable=false)
