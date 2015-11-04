@@ -12,6 +12,7 @@ import com.hibernate.dao.PedidoDAO;
 import com.hibernate.dao.ProvedorDAO;
 import com.hibernate.dao.RefaccionDAO;
 import com.hibernate.dao.ReparaccionDAO;
+import com.hibernate.dao.ServicioDAO;
 import com.hibernate.dao.TelProvedorDAO;
 import com.hibernate.entidades.Automovil;
 import com.hibernate.entidades.Cliente;
@@ -20,6 +21,7 @@ import com.hibernate.entidades.Pedido;
 import com.hibernate.entidades.Provedor;
 import com.hibernate.entidades.Refaccion;
 import com.hibernate.entidades.Reparacion;
+import com.hibernate.entidades.Servicio;
 import com.hibernate.entidades.TelCliente;
 import com.hibernate.entidades.Telefono;
 import com.hibernate.init.HibernateUtil;
@@ -108,10 +110,13 @@ public class App {
         Automovil automovil=new Automovil();
         automovil.setAno(1999);
         automovil.setMarca("Chevrolet");
-        automovil.setPlaca("SGX78");
+        automovil.setPlaca("AADDDA");
+                automovil.setCliente(cliente);
         automovilDAO.agregaAutomovil(automovil);
-        cliente.getAutomoviles().add(automovil);
-        clienteDAO.actualizaCliente(cliente);
+        
+        
+        //cliente.getAutomoviles().add(automovil);
+       // clienteDAO.actualizaCliente(cliente);
         
         Refaccion refaccion1,refaccion2;
         refaccion1 = new Refaccion(new Float("20.0"),"Clotch", "RGB4");
@@ -120,16 +125,26 @@ public class App {
         reffacciones.add(refaccion1);
         reffacciones.add(refaccion2);
         RefaccionDAO refaccionDAO=new RefaccionDAO();
+        refaccionDAO.agregaProvedor(refaccion2);
+                refaccionDAO.agregaProvedor(refaccion1);
+
         
+        Servicio servicio=new Servicio();
+        ServicioDAO servicioDAO=new ServicioDAO();
+        servicio.setDescripcion("Hace muchas cosas");
+        servicio.setNombre("Mantenimiento");
+        servicioDAO.agregaServicio(servicio);
         
         
         ReparaccionDAO reparacionDAO=new ReparaccionDAO();
         Reparacion reparacion=new Reparacion();
         reparacion.setAutomovil(automovil);
         reparacion.setFecha(new Date());
+        reparacion.setServicio(servicio);
         reparacion.setMontoTotal(Float.valueOf("500.5"));
         reparacion.setRefacciones(reffacciones);
         reparacionDAO.agregaProvedor(reparacion);
+        
         
         
         System.out.println("Done");
