@@ -30,11 +30,36 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="Reparacion", catalog="TallerM")
 public class Reparacion implements java.io.Serializable {
+    
+        @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name="IDVENTA",unique=true,nullable=false) 
     private Integer idVenta;
+        
+    @Temporal(TemporalType.DATE)
+    @Column(name="FECHA", nullable=false, length=10)     
     private Date Fecha;
+    
+    @Column(name="MONTOTOTAL", precision=6)
     private Float MontoTotal;
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "Refaccion_has_Reparacion", catalog = "TallerM", joinColumns = { 
+                    @JoinColumn(name = "REPARACION_IDVENTA", nullable = false, updatable = false) }, 
+                    inverseJoinColumns = { @JoinColumn(name = "REFACCION_IDREFACCION", 
+                                    nullable = false, updatable = false) })
     private Set<Refaccion>Refacciones=new HashSet<Refaccion>(0);
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "IDAUTOMOVIL", nullable = false) 
     private Automovil automovil;
+
+    @ManyToMany(mappedBy="reparaciones", fetch=FetchType.LAZY)
+    private Set<Empleado>empleados=new HashSet<Empleado>(0);
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "IDMECANICO", nullable = false)
+    private Servicio servicio;
     
     public Reparacion(){
         
@@ -51,9 +76,7 @@ public class Reparacion implements java.io.Serializable {
     /**
      * @return the idVenta
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name="IDVENTA",unique=true,nullable=false) 
+
     public Integer getIdVenta() {
         return idVenta;
     }
@@ -68,8 +91,7 @@ public class Reparacion implements java.io.Serializable {
     /**
      * @return the Fecha
      */
-    @Temporal(TemporalType.DATE)
-    @Column(name="FECHA", nullable=false, length=10)
+  
     public Date getFecha() {
         return Fecha;
     }
@@ -84,7 +106,6 @@ public class Reparacion implements java.io.Serializable {
     /**
      * @return the MontoTotal
      */
-    @Column(name="MONTOTOTAL", precision=6)
     public Float getMontoTotal() {
         return MontoTotal;
     }
@@ -99,11 +120,7 @@ public class Reparacion implements java.io.Serializable {
     /**
      * @return the Refacciones
      */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "Refaccion_has_Reparacion", catalog = "TallerM", joinColumns = { 
-                    @JoinColumn(name = "REPARACION_IDVENTA", nullable = false, updatable = false) }, 
-                    inverseJoinColumns = { @JoinColumn(name = "REFACCION_IDREFACCION", 
-                                    nullable = false, updatable = false) })
+  
     public Set<Refaccion> getRefacciones() {
         return Refacciones;
     }
@@ -115,14 +132,40 @@ public class Reparacion implements java.io.Serializable {
         this.Refacciones = Refacciones;
     }
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "IDAUTOMOVIL", nullable = false)
     public Automovil getAutomovil() {
         return automovil;
     }
 
     public void setAutomovil(Automovil automovil) {
         this.automovil = automovil;
+    }
+
+    /**
+     * @return the empleados
+     */
+    public Set<Empleado> getEmpleados() {
+        return empleados;
+    }
+
+    /**
+     * @param empleados the empleados to set
+     */
+    public void setEmpleados(Set<Empleado> empleados) {
+        this.empleados = empleados;
+    }
+
+    /**
+     * @return the servicio
+     */
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    /**
+     * @param servicio the servicio to set
+     */
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
     }
     
     

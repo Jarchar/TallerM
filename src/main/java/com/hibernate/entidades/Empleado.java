@@ -9,12 +9,16 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,7 +27,7 @@ import javax.persistence.Table;
  * @author bruno
  */
 @Entity
-@Table(name = "Empleado")
+@Table(name = "Empleado", catalog="TallerM")
 public class Empleado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,25 +39,32 @@ public class Empleado implements Serializable {
     @Column(name = "Nombre")
     private String nombre;
     @Basic(optional = false)
-    @Column(name = "Mecanicocol")
-    private String mecanicocol;
-    @JoinColumn(name = "idVenta")
-    @ManyToOne(optional = false)
-    private Set<Reparacion> reparaciones=new HashSet<Reparacion>();
+    @Column(name = "ApellidoP")
+    private String apellidoP;
+    @Column(name = "ApellidoM")
+    private String apellidoM;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "Empleado_Reparacion", catalog = "TallerM", joinColumns = {
+        @JoinColumn(name = "EMPLEADO_IDEMPLEADO", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "REPARACION_IDVENTA",
+                    nullable = false, updatable = false) })
+    private Set<Reparacion> reparaciones;
 
     public Empleado() {
+        this.reparaciones = new HashSet<Reparacion>();
     }
 
     public Empleado(Integer idMecanico) {
+        this.reparaciones = new HashSet<Reparacion>();
         this.idMecanico = idMecanico;
     }
 
     public Empleado(Integer idMecanico, String nombre, String mecanicocol) {
+        this.reparaciones = new HashSet<Reparacion>();
         this.idMecanico = idMecanico;
         this.nombre = nombre;
-        this.mecanicocol = mecanicocol;
+        this.apellidoP = mecanicocol;
     }
-
     public Integer getIdMecanico() {
         return idMecanico;
     }
@@ -71,11 +82,39 @@ public class Empleado implements Serializable {
     }
 
     public String getMecanicocol() {
-        return mecanicocol;
+        return apellidoP;
     }
 
-    public void setMecanicocol(String mecanicocol) {
-        this.mecanicocol = mecanicocol;
+    public void setApellidoP(String apellidoP) {
+        this.apellidoP = apellidoP;
+    }
+     /**
+     * @return the apellidoM
+     */
+    public String getApellidoM() {
+        return apellidoM;
+    }
+
+    /**
+     * @param apellidoM the apellidoM to set
+     */
+    public void setApellidoM(String apellidoM) {
+        this.apellidoM = apellidoM;
+    }
+
+   
+     /**
+     * @return the reparaciones
+     */
+    public Set<Reparacion> getReparaciones() {
+        return reparaciones;
+    }
+
+    /**
+     * @param reparaciones the reparaciones to set
+     */
+    public void setReparaciones(Set<Reparacion> reparaciones) {
+        this.reparaciones = reparaciones;
     }
 
 
@@ -105,18 +144,7 @@ public class Empleado implements Serializable {
         return "com.hibernate.entidades.Empleado[ idMecanico=" + idMecanico + " ]";
     }
 
-    /**
-     * @return the reparaciones
-     */
-    public Set<Reparacion> getReparaciones() {
-        return reparaciones;
-    }
+   
 
-    /**
-     * @param reparaciones the reparaciones to set
-     */
-    public void setReparaciones(Set<Reparacion> reparaciones) {
-        this.reparaciones = reparaciones;
-    }
     
 }

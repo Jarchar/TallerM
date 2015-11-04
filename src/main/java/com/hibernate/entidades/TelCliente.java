@@ -5,6 +5,7 @@
  */
 package com.hibernate.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,31 +21,31 @@ import javax.persistence.Table;
  * @author bruno
  */
 @Entity
-@Table (name="TelProvedor", catalog="TallerM")
-public class Telefono implements java.io.Serializable{
+@Table(name="TelCliente", catalog="TallerM")
+public class TelCliente implements Serializable{
     
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "IDTELEFONO", unique = true, nullable = false)
+    @Column(name = "IDTELEFONO", unique = true, nullable = false) 
     private Integer idTelefono;
-    
+     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "IDPROVEDOR", nullable = false)
-    private Provedor provedor;
-    
+    @JoinColumn(name = "IDCLIENTE", nullable = false)
+    private Cliente cliente;
+     
     @Column(name = "TELEFONO", unique = true, nullable = false, length = 10)
     private Integer Telefono;
     
-    public Telefono(){
+    public TelCliente(){
         
     }
-    public Telefono(Integer Telefono){
+    public TelCliente(Integer Telefono){
         this.Telefono=Telefono;
         
         
     }
-    public Telefono(Provedor idProvedor, Integer Telefono){
-        this.provedor=idProvedor;
+    public TelCliente(Cliente cliente, Integer Telefono){
+        this.cliente=cliente;
         this.Telefono=Telefono;
         
     }
@@ -52,15 +53,16 @@ public class Telefono implements java.io.Serializable{
     /**
      * @return the idProvedor
      */
-    public Provedor getProvedor() {
-        return this.provedor;
+
+    public Cliente getCliente() {
+        return this.cliente;
     }
 
     /**
-     * @param provedor
+     * @param cliente
      */
-    public void setProvedor(Provedor provedor) {
-        this.provedor = provedor;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     /**

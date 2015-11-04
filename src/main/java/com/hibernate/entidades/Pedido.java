@@ -30,9 +30,25 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="Pedido", catalog="TallerM")
 public class Pedido implements java.io.Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "IDPEDIDO", unique = true, nullable = false)
     private Integer idPedido;
+        
+    @ManyToOne(fetch =FetchType.LAZY)
+    @JoinColumn(name = "PROVEDOR_IDPROVEDOR", nullable = false)
     private Provedor provedor;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name="FECHA",nullable=false, length=10)
     private Date fecha;
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "Pedido_has_Refaccion", catalog = "TallerM", joinColumns = {
+        @JoinColumn(name = "PEDIDO_IDPEDIDO", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "REFACCION_IDREFACCION",
+                    nullable = false, updatable = false) })
     private Set<Refaccion> refaccions=new HashSet<Refaccion>();
     
     public Pedido(){
@@ -46,9 +62,7 @@ public class Pedido implements java.io.Serializable {
     /**
      * @return the idPedido
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "IDPEDIDO", unique = true, nullable = false)
+
     public Integer getIdPedido() {
         return idPedido;
     }
@@ -64,8 +78,6 @@ public class Pedido implements java.io.Serializable {
     /**
      * @return the provedor
      */
-    @ManyToOne(fetch =FetchType.LAZY)
-    @JoinColumn(name = "PROVEDOR_IDPROVEDOR", nullable = false)
     public Provedor getProvedor() {
         return provedor;
     }
@@ -80,8 +92,6 @@ public class Pedido implements java.io.Serializable {
     /**
      * @return the fecha
      */
-    @Temporal(TemporalType.DATE)
-    @Column(name="FECHA",nullable=false, length=10)
     public Date getFecha() {
         return fecha;
     }
@@ -92,12 +102,6 @@ public class Pedido implements java.io.Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "Pedido_has_Refaccion", catalog = "TallerM", joinColumns = { 
-                    @JoinColumn(name = "PEDIDO_IDPEDIDO", nullable = false, updatable = false) }, 
-                    inverseJoinColumns = { @JoinColumn(name = "REFACCION_IDREFACCION", 
-                                    nullable = false, updatable = false) })
 
     public Set<Refaccion> getRefaccions() {
         return refaccions;

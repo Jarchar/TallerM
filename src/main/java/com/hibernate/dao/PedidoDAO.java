@@ -5,7 +5,7 @@
  */
 package com.hibernate.dao;
 
-import com.hibernate.entidades.Automovil;
+import com.hibernate.entidades.Pedido;
 import com.hibernate.init.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +17,13 @@ import org.hibernate.Transaction;
  *
  * @author bruno
  */
-public class AutomovilDAO {
-        
-    public void agregaPedido(Automovil automovil) {
+public class PedidoDAO {
+     public void agregaPedido(Pedido pedido) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            session.save(automovil);
+            session.save(pedido);
             session.getTransaction().commit();
         } catch (RuntimeException e) {
             if (trns != null) {
@@ -36,13 +35,13 @@ public class AutomovilDAO {
             session.close();
         }
     }
-    public void borraPedido(int idAutomovil) {
+    public void borraPedido(int idPedido) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            Automovil automovil = (Automovil) session.load(Automovil.class, new Integer(idAutomovil));
-            session.delete(automovil);
+            Pedido pedido = (Pedido) session.load(Pedido.class, new Integer(idPedido));
+            session.delete(pedido);
             session.getTransaction().commit();
         } catch (RuntimeException e) {
             if (trns != null) {
@@ -54,12 +53,12 @@ public class AutomovilDAO {
             session.close();
         }
     }
-      public void actualizaPedido(Automovil provedor) {
+      public void actualizaProvedor(Pedido pedido) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            session.update(provedor);
+            session.update(pedido);
             session.getTransaction().commit();
         } catch (RuntimeException e) {
             if (trns != null) {
@@ -72,39 +71,39 @@ public class AutomovilDAO {
         }
     }
 
-    public List<Automovil> listaProvedores() {
-        List<Automovil> automoviles = new ArrayList<Automovil>();
+    public List<Pedido> listaPedidos() {
+        List<Pedido> pedidos = new ArrayList<Pedido>();
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            automoviles = session.createQuery("from Automovil").list();
+            pedidos = session.createQuery("from Pedido").list();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
             session.flush();
             session.close();
         }
-        return automoviles;
+        return pedidos;
     }
 
-    public Automovil buscaPedido(int idProvedor) {
-        Automovil automovil = null;
+    public Pedido buscaPedido(int idPedido) {
+        Pedido reparacion = null;
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            String queryString = "from Automovil where id = :id";
+            String queryString = "from Reparacion where id = :id";
             Query query = session.createQuery(queryString);
-            query.setInteger("id", idProvedor);
-            automovil = (Automovil) query.uniqueResult();
+            query.setInteger("id", idPedido);
+            reparacion = (Pedido) query.uniqueResult();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
             session.flush();
             session.close();
         }
-        return automovil;
+        return reparacion;
     }
     
 }

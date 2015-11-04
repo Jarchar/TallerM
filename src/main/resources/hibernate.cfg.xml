@@ -18,9 +18,7 @@
     <mapping class="com.hibernate.entidades.Automovil"/>
     <mapping class="com.hibernate.entidades.Servicio"/>
     <mapping class="com.hibernate.entidades.Empleado"/>
-
-
-
+    <mapping class="com.hibernate.entidades.TelCliente"/>
 
   </session-factory>
 </hibernate-configuration>

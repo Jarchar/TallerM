@@ -25,13 +25,32 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Automovil", catalog="TallerM")
 public class Automovil implements java.io.Serializable{
+    
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name="IDAUTOMOVIL",unique=true,nullable=false) 
     private Integer idAutomovil;
+    
+    @Column(name="MARCA", nullable=false,length=10)
     private String Marca;
+    
+    @Column(name="MODELO", length=15)
     private String Modelo;
+    
+    @Column(name="ANO")
     private String Ano;
+    
+    @Column(name="COLOR", length=10)
     private String Color;
+    
+    @Column(name="PLACA", unique=true, nullable=false)
     private String Placa;
+    
+    @OneToMany(mappedBy = "automovil", fetch=FetchType.LAZY)
     private Set<Reparacion>reparaciones=new HashSet<Reparacion>(0);
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "IDCLIENTE", nullable = false)
     private Cliente cliente;
     
     public Automovil(){
@@ -63,9 +82,7 @@ public class Automovil implements java.io.Serializable{
     /**
      * @return the idAutomovil
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name="IDAUTOMOVIL",unique=true,nullable=false) 
+
     public Integer getIdAutomovil() {
         return idAutomovil;
     }
@@ -80,7 +97,6 @@ public class Automovil implements java.io.Serializable{
     /**
      * @return the Marca
      */
-    @Column(name="MARCA", nullable=false,length=10)
     public String getMarca() {
         return Marca;
     }
@@ -95,7 +111,6 @@ public class Automovil implements java.io.Serializable{
     /**
      * @return the Modelo
      */
-    @Column(name="MODELO", length=15)
     public String getModelo() {
         return Modelo;
     }
@@ -110,7 +125,6 @@ public class Automovil implements java.io.Serializable{
     /**
      * @return the Ano
      */
-    @Column(name="ANO")
     public String getAno() {
         return Ano;
     }
@@ -125,7 +139,6 @@ public class Automovil implements java.io.Serializable{
     /**
      * @return the Color
      */
-    @Column(name="COLOR", length=10)
     public String getColor() {
         return Color;
     }
@@ -140,7 +153,6 @@ public class Automovil implements java.io.Serializable{
     /**
      * @return the Placa
      */
-    @Column(name="PLACA", unique=true, nullable=false)
     public String getPlaca() {
         return Placa;
     }
@@ -155,7 +167,6 @@ public class Automovil implements java.io.Serializable{
     /**
      * @return the reparaciones
      */
-    @OneToMany(mappedBy = "automovil", fetch=FetchType.LAZY)
     public Set<Reparacion> getReparaciones() {
         return reparaciones;
     }
@@ -170,8 +181,6 @@ public class Automovil implements java.io.Serializable{
     /**
      * @return the cliente
      */
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "IDCLIENTE", nullable = false)
     public Cliente getCliente() {
         return cliente;
     }
