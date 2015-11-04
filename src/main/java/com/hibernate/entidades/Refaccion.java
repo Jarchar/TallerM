@@ -24,12 +24,28 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Refaccion", catalog="TallerM")
 public class Refaccion implements java.io.Serializable{
+    
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name="IDREFACCION",unique=true,nullable=false) 
     private Integer idRefaccion;
+    
+    @Column(name="PRECIO", nullable=false)
     private Float precio;
+    
+    @Column(name="TIPO", nullable=false,length=20)
     private String tipo;
+    
+    @Column(name="Descripcion", length=100)
     private String Descripcion;
+    
+    @Column(name ="NOMBRE", nullable=false, length=15)
     private String Nombre;
+    
+    @ManyToMany(mappedBy = "refaccions", fetch=FetchType.LAZY)
     private Set<Pedido>pedidos=new HashSet<Pedido>(0);
+    
+    @ManyToMany(mappedBy = "Refacciones", fetch=FetchType.LAZY)
     private Set<Reparacion> reparacions=new HashSet<Reparacion>(0);
     
     public Refaccion(){
@@ -50,9 +66,7 @@ public class Refaccion implements java.io.Serializable{
     /**
      * @return the idRefaccion
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name="IDREFACCION",unique=true,nullable=false)  
+ 
     public Integer getIdRefaccion() {
         return idRefaccion;
     }
@@ -67,7 +81,6 @@ public class Refaccion implements java.io.Serializable{
     /**
      * @return the precio
      */
-    @Column(name="PRECIO", nullable=false)
     public Float getPrecio() {
         return precio;
     }
@@ -82,7 +95,6 @@ public class Refaccion implements java.io.Serializable{
     /**
      * @return the tipo
      */
-    @Column(name="TIPO", nullable=false,length=20)
     public String getTipo() {
         return tipo;
     }
@@ -97,7 +109,6 @@ public class Refaccion implements java.io.Serializable{
     /**
      * @return the Descripcion
      */
-    @Column(name="Descripcion", length=100)
     public String getDescripcion() {
         return Descripcion;
     }
@@ -112,7 +123,6 @@ public class Refaccion implements java.io.Serializable{
     /**
      * @return the pedidos
      */
-    @ManyToMany(mappedBy = "refaccions", fetch=FetchType.LAZY)
     public Set<Pedido> getPedidos() {
         return pedidos;
     }
@@ -127,7 +137,6 @@ public class Refaccion implements java.io.Serializable{
     /**
      * @return the Nombre
      */
-    @Column(name ="NOMBRE", nullable=false, length=15)
     public String getNombre() {
         return Nombre;
     }
@@ -139,7 +148,6 @@ public class Refaccion implements java.io.Serializable{
         this.Nombre = Nombre;
     }
 
-    @ManyToMany(mappedBy = "refacciones", fetch=FetchType.LAZY)
     public Set<Reparacion> getReparacions() {
         return reparacions;
     }

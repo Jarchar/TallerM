@@ -5,6 +5,7 @@
  */
 package com.hibernate.entidades;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -23,11 +24,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Cliente", catalog="TallerM")
-public class Cliente implements java.io.Serializable{
-     @Id
+public class Cliente implements Serializable{
+    
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idCliente")
+    @Column(name = "idCliente", nullable=false)
     private Integer idCliente;
     @Basic(optional = false)
     @Column(name = "Nombre", length=10)
@@ -47,7 +48,11 @@ public class Cliente implements java.io.Serializable{
     @Column(name = "Num", nullable=false)
     private Integer num;
     
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
     private Set<Automovil>automoviles=new HashSet<Automovil>(0);
+    
+    @OneToMany(mappedBy= "cliente", fetch=FetchType.LAZY)
+    private Set<TelCliente>telefonos=new HashSet<TelCliente>(0);
 
     public Cliente() {
     }
@@ -130,7 +135,6 @@ public class Cliente implements java.io.Serializable{
     /**
      * @return the automoviles
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
     public Set<Automovil> getAutomoviles() {
         return automoviles;
     }
@@ -140,6 +144,20 @@ public class Cliente implements java.io.Serializable{
      */
     public void setAutomoviles(Set<Automovil> automoviles) {
         this.automoviles = automoviles;
+    }
+
+    /**
+     * @return the telefonos
+     */
+    public Set<TelCliente> getTelefonos() {
+        return telefonos;
+    }
+
+    /**
+     * @param telefonos the telefonos to set
+     */
+    public void setTelefonos(Set<TelCliente> telefonos) {
+        this.telefonos = telefonos;
     }
 
     

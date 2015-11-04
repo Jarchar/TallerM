@@ -24,11 +24,25 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Provedor", catalog="TallerM")
 public class Provedor implements java.io.Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name="IDPROVEDOR",unique=true,nullable=false)
     private Integer idProvedor;
+    
+    @Column(name = "NOMBRE", unique = true, nullable = false, length = 45)
     private String Nombre;
+    
+    @Column(name = "CORREO", unique = true,nullable=false, length = 45)
     private String Correo;
+    
+    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "provedor")
     private Set<Telefono> telefonos=new HashSet<Telefono>(0);
+    
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "provedor")
     private Set<Pedido> pedidos=new HashSet<Pedido>(0);
+    
+    @OneToMany(mappedBy = "provedor", fetch= FetchType.LAZY)
     private Set<Direccion> direccions=new HashSet<Direccion>(0);
 
     
@@ -57,9 +71,7 @@ public class Provedor implements java.io.Serializable {
     /**
      * @return the idProvedor
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name="IDPROVEDOR",unique=true,nullable=false)
+
     public Integer getIdProvedor() {
         return idProvedor;
     }
@@ -74,7 +86,6 @@ public class Provedor implements java.io.Serializable {
     /**
      * @return the Nombre
      */
-    @Column(name = "NOMBRE", unique = true, nullable = false, length = 45)
     public String getNombre() {
         return Nombre;
     }
@@ -89,7 +100,6 @@ public class Provedor implements java.io.Serializable {
     /**
      * @return the Correo
      */
-    @Column(name = "CORREO", unique = true,nullable=false, length = 45)
     public String getCorreo() {
         return Correo;
     }
@@ -104,7 +114,6 @@ public class Provedor implements java.io.Serializable {
     /**
      * @return the telefonos
      */
-    @OneToMany(fetch = FetchType.LAZY,  mappedBy = "provedor")
     public Set<Telefono> getTelefonos() {
         return telefonos;
     }
@@ -119,7 +128,6 @@ public class Provedor implements java.io.Serializable {
     /**
      * @return the pedidos
      */
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "provedor")
     public Set<Pedido> getPedidos() {
         return pedidos;
     }
@@ -131,7 +139,6 @@ public class Provedor implements java.io.Serializable {
         this.pedidos = pedidos;
     }
 
-    @OneToMany(mappedBy = "provedor", fetch= FetchType.LAZY)
     public Set<Direccion> getDireccions() {
         return direccions;
     }

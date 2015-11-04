@@ -23,13 +23,28 @@ import javax.persistence.Table;
 @Table(name="Direccion", catalog="TallerM")
 
 public class Direccion implements java.io.Serializable {
-    
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "IDDIRECCION", unique = true, nullable = false)
     private Integer idDireccion;
+    
+    @Column(name = "COLONIA",nullable = false, length=20)
     private String Colonia;
+    
+    @Column(name = "CALLE", nullable = false, length=20)
     private String Calle;
+    
+    @Column(name = "CIUDAD", nullable = false, length=15)
     private String Ciudad;
+    
+    @Column(name = "CODIGOPOSTAL", nullable = false)
     private Integer CodigoPostal;
+
+    @Column(name="NUM", nullable= false)
     private Integer Numero;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "IDPROVEDOR", nullable = false)
     private Provedor provedor;
     
     /**
@@ -47,9 +62,7 @@ public class Direccion implements java.io.Serializable {
     /**
      * @return the idDireccion
      */
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "IDDIRECCION", unique = true, nullable = false)
+
     public Integer getIdDireccion() {
         return idDireccion;
     }
@@ -64,7 +77,6 @@ public class Direccion implements java.io.Serializable {
     /**
      * @return the Colonia
      */
-    @Column(name = "COLONIA",nullable = false, length=20)
     public String getColonia() {
         return Colonia;
     }
@@ -79,7 +91,6 @@ public class Direccion implements java.io.Serializable {
     /**
      * @return the Calle
      */
-    @Column(name = "CALLE", nullable = false, length=20)
     public String getCalle() {
         return Calle;
     }
@@ -94,7 +105,6 @@ public class Direccion implements java.io.Serializable {
     /**
      * @return the Ciudad
      */
-    @Column(name = "CIUDAD", nullable = false, length=15)
     public String getCiudad() {
         return Ciudad;
     }
@@ -109,7 +119,6 @@ public class Direccion implements java.io.Serializable {
     /**
      * @return the CodigoPostal
      */
-    @Column(name = "CODIGOPOSTAL", nullable = false)
     public Integer getCodigoPostal() {
         return CodigoPostal;
     }
@@ -124,8 +133,6 @@ public class Direccion implements java.io.Serializable {
     /**
      * @return the provedor
      */
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "PROVEDOR_IDPROVEDOR", nullable = false)
     public Provedor getProvedor() {
         return provedor;
     }
@@ -140,7 +147,6 @@ public class Direccion implements java.io.Serializable {
     /**
      * @return the Numero
      */
-    @Column(name="NUM", nullable= false)
     public Integer getNumero() {
         return Numero;
     }
