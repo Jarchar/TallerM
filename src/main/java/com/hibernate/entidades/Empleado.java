@@ -27,7 +27,7 @@ import javax.persistence.Table;
  * @author bruno
  */
 @Entity
-@Table(name = "Empleado", catalog="TallerM")
+@Table(name = "Mecanico", catalog="TallerM")
 public class Empleado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,8 +44,8 @@ public class Empleado implements Serializable {
     @Column(name = "ApellidoM")
     private String apellidoM;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "Empleado_Reparacion", catalog = "TallerM", joinColumns = {
-        @JoinColumn(name = "EMPLEADO_IDEMPLEADO", nullable = false, updatable = false) },
+    @JoinTable(name = "Mecanico_Reparacion", catalog = "TallerM", joinColumns = {
+        @JoinColumn(name = "MECANICO_IDMECANICO", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "REPARACION_IDVENTA",
                     nullable = false, updatable = false) })
     private Set<Reparacion> reparaciones;
