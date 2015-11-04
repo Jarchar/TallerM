@@ -51,14 +51,14 @@ public class Reparacion implements java.io.Serializable {
     private Set<Refaccion>Refacciones=new HashSet<Refaccion>(0);
     
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "IDAUTOMOVIL", nullable = false) 
+    @JoinColumn(name = "AUTOMOVIL_IDAUTOMOVIL", nullable = false) 
     private Automovil automovil;
 
     @ManyToMany(mappedBy="reparaciones", fetch=FetchType.LAZY)
     private Set<Empleado>empleados=new HashSet<Empleado>(0);
     
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "IDMECANICO", nullable = false)
+    @JoinColumn(name = "SERVICIO_IDSERVICIO", nullable = false)
     private Servicio servicio;
     
     public Reparacion(){
