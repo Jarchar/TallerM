@@ -53,7 +53,7 @@ public class DireccionDAO {
             session.close();
         }
     }
-      public void actualizaProvedor(Direccion direccion) {
+      public void actualizaDireccion(Direccion direccion) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -87,7 +87,7 @@ public class DireccionDAO {
         return direcciones;
     }
 
-    public Direccion buscaProvedor(int idDireccion) {
+    public Direccion buscaPedido(int idDireccion) {
         Direccion direccion = null;
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();

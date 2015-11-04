@@ -19,7 +19,7 @@ import org.hibernate.Transaction;
  */
 public class AutomovilDAO {
         
-    public void agregaProvedor(Automovil automovil) {
+    public void agregaAutomovil(Automovil automovil) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -36,7 +36,7 @@ public class AutomovilDAO {
             session.close();
         }
     }
-    public void borraProvedor(int idAutomovil) {
+    public void borraAutomovil(int idAutomovil) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -54,7 +54,7 @@ public class AutomovilDAO {
             session.close();
         }
     }
-      public void actualizaProvedor(Automovil provedor) {
+      public void actualizaAutomovil(Automovil provedor) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -72,7 +72,7 @@ public class AutomovilDAO {
         }
     }
 
-    public List<Automovil> listaProvedores() {
+    public List<Automovil> listaAutomoviles() {
         List<Automovil> automoviles = new ArrayList<Automovil>();
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -88,7 +88,7 @@ public class AutomovilDAO {
         return automoviles;
     }
 
-    public Automovil buscaProvedor(int idProvedor) {
+    public Automovil buscaAutomovil(int idAutomovil) {
         Automovil automovil = null;
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -96,7 +96,7 @@ public class AutomovilDAO {
             trns = session.beginTransaction();
             String queryString = "from Automovil where id = :id";
             Query query = session.createQuery(queryString);
-            query.setInteger("id", idProvedor);
+            query.setInteger("id", idAutomovil);
             automovil = (Automovil) query.uniqueResult();
         } catch (RuntimeException e) {
             e.printStackTrace();

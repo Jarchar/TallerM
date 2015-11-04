@@ -5,7 +5,7 @@
  */
 package com.hibernate.dao;
 
-import com.hibernate.entidades.Pedido;
+import com.hibernate.entidades.TelCliente;
 import com.hibernate.init.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +17,13 @@ import org.hibernate.Transaction;
  *
  * @author bruno
  */
-public class PedidoDAO {
-     public void agregaPedido(Pedido pedido) {
+public class TelClienteDAO {
+     public void agregaTelCliente(TelCliente telefono) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            session.save(pedido);
+            session.save(telefono);
             session.getTransaction().commit();
         } catch (RuntimeException e) {
             if (trns != null) {
@@ -35,13 +35,13 @@ public class PedidoDAO {
             session.close();
         }
     }
-    public void borraPedido(int idPedido) {
+    public void borraTelProvedor(int idTelefono) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            Pedido pedido = (Pedido) session.load(Pedido.class, new Integer(idPedido));
-            session.delete(pedido);
+            TelCliente telefono = (TelCliente) session.load(TelCliente.class, new Integer(idTelefono));
+            session.delete(telefono);
             session.getTransaction().commit();
         } catch (RuntimeException e) {
             if (trns != null) {
@@ -53,12 +53,12 @@ public class PedidoDAO {
             session.close();
         }
     }
-      public void actualizaProvedor(Pedido pedido) {
+      public void actualizaTelCliente(TelCliente telefono) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            session.update(pedido);
+            session.update(telefono);
             session.getTransaction().commit();
         } catch (RuntimeException e) {
             if (trns != null) {
@@ -71,39 +71,38 @@ public class PedidoDAO {
         }
     }
 
-    public List<Pedido> listaPedidos() {
-        List<Pedido> pedidos = new ArrayList<Pedido>();
+    public List<TelCliente> listaTelProvedores() {
+        List<TelCliente> reparaciones = new ArrayList<TelCliente>();
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            pedidos = session.createQuery("from Pedido").list();
+            reparaciones = session.createQuery("from Telefono").list();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
             session.flush();
             session.close();
         }
-        return pedidos;
+        return reparaciones;
     }
 
-    public Pedido buscaPedido(int idPedido) {
-        Pedido reparacion = null;
+    public TelCliente buscaTelProvedor(int idTelefono) {
+        TelCliente telefono = null;
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            String queryString = "from Reparacion where id = :id";
+            String queryString = "from Telefono where id = :id";
             Query query = session.createQuery(queryString);
-            query.setInteger("id", idPedido);
-            reparacion = (Pedido) query.uniqueResult();
+            query.setInteger("id", idTelefono);
+            telefono = (TelCliente) query.uniqueResult();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
             session.flush();
             session.close();
         }
-        return reparacion;
+        return telefono;
     }
-    
 }

@@ -29,7 +29,7 @@ public class Telefono implements java.io.Serializable{
     private Integer idTelefono;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idProvedor", nullable = false)
+    @JoinColumn(name = "PROVEDOR_IDPROVEDOR", nullable = false)
     private Provedor provedor;
     
     @Column(name = "TELEFONO", unique = true, nullable = false, length = 10)

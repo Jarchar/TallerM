@@ -38,7 +38,7 @@ public class Automovil implements java.io.Serializable{
     private String Modelo;
     
     @Column(name="ANO")
-    private String Ano;
+    private Integer Ano;
     
     @Column(name="COLOR", length=10)
     private String Color;
@@ -50,13 +50,13 @@ public class Automovil implements java.io.Serializable{
     private Set<Reparacion>reparaciones=new HashSet<Reparacion>(0);
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "IDCLIENTE", nullable = false)
+    @JoinColumn(name = "CLIENTE_IDCLIENTE", nullable = false)
     private Cliente cliente;
     
     public Automovil(){
         
     }
-    public Automovil(String Marca, String Modelo, String Ano, String Color, String Placa){
+    public Automovil(String Marca, String Modelo, Integer Ano, String Color, String Placa){
         this.Marca=Marca;
         this.Modelo=Modelo;
         this.Ano=Ano;
@@ -72,7 +72,7 @@ public class Automovil implements java.io.Serializable{
         this.Placa=Placa;
 
     }
-    public Automovil(String Marca, String Modelo, String Ano, String Placa){
+    public Automovil(String Marca, String Modelo, Integer Ano, String Placa){
         this.Marca=Marca;
         this.Modelo=Modelo;
         this.Ano=Ano;
@@ -125,14 +125,14 @@ public class Automovil implements java.io.Serializable{
     /**
      * @return the Ano
      */
-    public String getAno() {
+    public Integer getAno() {
         return Ano;
     }
 
     /**
      * @param Ano the Ano to set
      */
-    public void setAno(String Ano) {
+    public void setAno(Integer Ano) {
         this.Ano = Ano;
     }
 

@@ -30,7 +30,7 @@ public class Provedor implements java.io.Serializable {
     @Column(name="IDPROVEDOR",unique=true,nullable=false)
     private Integer idProvedor;
     
-    @Column(name = "NOMBRE", unique = true, nullable = false, length = 45)
+    @Column(name = "NOMBRE", nullable = false, length = 45)
     private String Nombre;
     
     @Column(name = "CORREO", unique = true,nullable=false, length = 45)

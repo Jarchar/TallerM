@@ -44,7 +44,7 @@ public class Direccion implements java.io.Serializable {
     private Integer Numero;
     
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "IDPROVEDOR", nullable = false)
+    @JoinColumn(name = "PROVEDOR_IDPROVEDOR", nullable = false)
     private Provedor provedor;
     
     /**
