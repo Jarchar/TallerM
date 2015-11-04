@@ -6,6 +6,7 @@
 package com.hibernate.tallerm;
 
 import com.hibernate.dao.ProvedorDAO;
+import com.hibernate.dao.TelProvedorDAO;
 import com.hibernate.entidades.Direccion;
 import com.hibernate.entidades.Pedido;
 import com.hibernate.entidades.Provedor;
@@ -28,15 +29,18 @@ public class App {
         
         ProvedorDAO provedorDAO=new ProvedorDAO();
         Provedor provedor=new Provedor();
-        provedor.setCorreo("cosa7@mail.com");
-        provedor.setNombre("PCP");
+        provedor.setCorreo("cosa9@mail.com");
+        provedor.setNombre("PCP3");
         provedorDAO.agregaProvedor(provedor);
         
-
+        TelProvedorDAO telefonoDAO=new TelProvedorDAO();      
         Telefono telefono=new Telefono();
         telefono.setTelefono(228161572);
         telefono.setProvedor(provedor);
+        telefonoDAO.agregaTelProvedor(telefono);
         provedor.getTelefonos().add(telefono);
+        provedorDAO.actualizaProvedor(provedor);
+        
 
         Direccion direccion=new Direccion();
         direccion.setCalle("Miguel Aleman");
