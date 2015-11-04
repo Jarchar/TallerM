@@ -89,7 +89,7 @@ public class ProvedorDAO {
     }
 
     public Provedor buscaProvedor(int idProvedor) {
-        Provedor user = null;
+        Provedor provedor = null;
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -97,14 +97,14 @@ public class ProvedorDAO {
             String queryString = "from Provedor where id = :id";
             Query query = session.createQuery(queryString);
             query.setInteger("id", idProvedor);
-            user = (Provedor) query.uniqueResult();
+            provedor = (Provedor) query.uniqueResult();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
             session.flush();
             session.close();
         }
-        return user;
+        return provedor;
     }
     
     
